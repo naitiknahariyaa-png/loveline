@@ -2,3 +2,5 @@ node_modules/
 uploads/
 chunks/
 *.log
+.env
+ngrok_bin/
