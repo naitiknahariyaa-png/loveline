@@ -6,7 +6,12 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
-const ngrok = require('@ngrok/ngrok');
+let ngrok = null;
+try {
+  ngrok = require('@ngrok/ngrok');
+} catch (e) {
+  console.log('ngrok SDK not installed or in cloud environment. Running pure web server.');
+}
 
 const app = express();
 const server = http.createServer(app);
@@ -930,8 +935,8 @@ function getMimeType(ext) {
 server.listen(PORT, async () => {
   console.log(`\n💖 LoveLink v3 (Jellyfin + Hindi Bollywood Cinema Edition) running at http://localhost:${PORT}`);
 
-  const NGROK_AUTHTOKEN = process.env.NGROK_AUTHTOKEN || '3EoWxLlty2Shl3hakxlC1DffmNT_5VVysWYR58d9Wsj5djLF1';
-  if (NGROK_AUTHTOKEN) {
+  const NGROK_AUTHTOKEN = process.env.NGROK_AUTHTOKEN;
+  if (NGROK_AUTHTOKEN && ngrok && !process.env.RENDER) {
     try {
       const listener = await ngrok.forward({
         addr: PORT,
