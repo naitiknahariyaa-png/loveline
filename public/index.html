@@ -1,0 +1,2016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>LoveLink 💖 — Bollywood &amp; Jellyfin Couple Cinema, Chat &amp; Memory Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-dark: #07040b;
+    --bg-card: rgba(22, 12, 33, 0.72);
+    --bg-card-solid: #170d24;
+    --bg-glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(244, 63, 94, 0.22);
+    --border-hover: rgba(244, 63, 94, 0.55);
+    --primary: #f43f5e;
+    --primary-gradient: linear-gradient(135deg, #ff2a6d 0%, #f43f5e 40%, #a855f7 100%);
+    --accent: #fb7185;
+    --purple: #c084fc;
+    --gold: #fbbf24;
+    --text: #fff1f2;
+    --text-muted: #d8b4e2;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --shadow-glow: 0 10px 35px rgba(244, 63, 94, 0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: radial-gradient(circle at 15% 15%, #2a0b33 0%, #0d0617 50%, #050208 100%);
+    color: var(--text);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  #particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ── Screen 1: Join View ── */
+  #join-view {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .join-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    padding: 44px 34px;
+    max-width: 490px;
+    width: 100%;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7), var(--shadow-glow);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0.92); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .join-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(244, 63, 94, 0.15);
+    border: 1px solid rgba(244, 63, 94, 0.35);
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .join-logo {
+    font-family: var(--font-serif);
+    font-size: 42px;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .join-desc {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+
+  .field-box {
+    text-align: left;
+    margin-bottom: 18px;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .input-styled {
+    width: 100%;
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 18px;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.25s;
+  }
+
+  .input-styled:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(244, 63, 94, 0.35);
+  }
+
+  .avatar-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .avatar-choice {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-glass);
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .avatar-choice.selected {
+    border-color: var(--primary);
+    background: rgba(244, 63, 94, 0.25);
+    transform: scale(1.15);
+    box-shadow: 0 0 15px rgba(244,63,94,0.4);
+  }
+
+  .btn-gradient {
+    width: 100%;
+    background: var(--primary-gradient);
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: var(--shadow-glow);
+    transition: all 0.2s;
+    margin-top: 10px;
+  }
+  .btn-gradient:hover { opacity: 0.93; transform: translateY(-2px); }
+  .btn-gradient:active { transform: translateY(1px); }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 14px;
+    padding: 11px 18px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 12px;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: #fff; }
+
+  /* ── Screen 2: Main App ── */
+  #main-app {
+    display: none;
+    height: 100vh;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .app-topbar {
+    height: 68px;
+    background: rgba(18, 9, 29, 0.85);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    flex-shrink: 0;
+  }
+
+  .topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .tab-navigator {
+    display: flex;
+    gap: 6px;
+    background: rgba(0,0,0,0.35);
+    padding: 5px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+  }
+
+  .tab-nav-btn {
+    padding: 8px 16px;
+    border-radius: 14px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.2s;
+  }
+
+  .tab-nav-btn.active {
+    background: var(--primary-gradient);
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(244, 63, 94, 0.4);
+  }
+
+  .topbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .room-pill {
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border);
+    padding: 7px 14px;
+    border-radius: 30px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .room-pill:hover { border-color: var(--primary); box-shadow: 0 0 15px rgba(244,63,94,0.3); }
+
+  .leave-btn {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #f87171;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .leave-btn:hover { background: #ef4444; color: #fff; }
+
+  .app-main-content {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .view-panel {
+    display: none;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+  }
+  .view-panel.active { display: flex; }
+
+  /* ── VIEW 1: COZY CHAT ── */
+  .chat-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chat-flow {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scroll-behavior: smooth;
+  }
+
+  .chat-row {
+    display: flex;
+    gap: 12px;
+    max-width: 72%;
+    animation: fadeInMsg 0.2s ease-out;
+  }
+
+  @keyframes fadeInMsg {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .chat-row.me {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+  }
+
+  .chat-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .chat-msg-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .chat-sender {
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 0 4px;
+  }
+
+  .chat-bubble {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 12px 18px;
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: break-word;
+    color: #fff;
+  }
+
+  .chat-row.me .chat-bubble {
+    background: linear-gradient(135deg, #831843 0%, #4c0519 100%);
+    border-color: rgba(244, 63, 94, 0.45);
+    box-shadow: 0 4px 15px rgba(244, 63, 94, 0.2);
+  }
+
+  /* Voice Note message bubble */
+  .voice-msg-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(244, 63, 94, 0.12);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 10px 18px;
+    min-width: 230px;
+  }
+
+  .voice-play-trigger {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);
+  }
+
+  .voice-bars {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 24px;
+  }
+
+  .v-bar {
+    width: 3px;
+    background: var(--accent);
+    border-radius: 3px;
+    height: 10px;
+  }
+
+  .voice-msg-card.playing .v-bar {
+    animation: waveBounce 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes waveBounce {
+    0% { height: 4px; }
+    100% { height: 22px; }
+  }
+
+  .love-touch-bar {
+    display: flex;
+    gap: 8px;
+    padding: 10px 24px;
+    background: rgba(14, 7, 22, 0.7);
+    border-top: 1px solid rgba(244, 63, 94, 0.12);
+    overflow-x: auto;
+  }
+
+  .love-touch-btn {
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    color: var(--text-muted);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .love-touch-btn:hover {
+    background: rgba(244,63,94,0.25);
+    border-color: var(--primary);
+    color: #fff;
+    transform: scale(1.05);
+  }
+
+  .chat-composer {
+    padding: 16px 24px;
+    background: rgba(16, 8, 25, 0.92);
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .composer-input {
+    flex: 1;
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 14px 20px;
+    color: #fff;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .composer-input:focus { border-color: var(--primary); }
+
+  .action-icon-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .action-icon-btn:hover { border-color: var(--primary); color: #fff; }
+  .action-icon-btn.recording {
+    background: #ef4444;
+    color: #fff;
+    box-shadow: 0 0 18px #ef4444;
+    animation: pulseMic 1s infinite;
+  }
+
+  @keyframes pulseMic { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+  .btn-send-message {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    background: var(--primary-gradient);
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(244,63,94,0.4);
+    flex-shrink: 0;
+  }
+
+  /* ── VIEW 2: CINEMA WATCH PARTY (BOLLYWOOD + JELLYFIN) ── */
+  .watch-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
+  .cinema-card {
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.8), 0 0 30px rgba(244,63,94,0.2);
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .cinema-screen {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shared-video-player {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .cinema-toolbar {
+    padding: 16px 24px;
+    background: var(--bg-card-solid);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .sync-badge-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .status-pulse {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 12px #34d399;
+  }
+
+  /* Jellyfin Server Banner */
+  .jellyfin-bar {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(244, 63, 94, 0.15));
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    border-radius: 20px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .jellyfin-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* Cinema Library Filters */
+  .catalog-controls {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .filter-pills-row {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .filter-pill {
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .filter-pill:hover { border-color: var(--primary); color: #fff; }
+  .filter-pill.active {
+    background: var(--primary-gradient);
+    border-color: transparent;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(244, 63, 94, 0.35);
+  }
+
+  .catalog-search-bar {
+    display: flex;
+    gap: 12px;
+  }
+
+  .catalog-input {
+    flex: 1;
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 18px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .catalog-input:focus { border-color: var(--primary); }
+
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 18px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .movie-card {
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .movie-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary);
+    box-shadow: 0 15px 35px rgba(244, 63, 94, 0.35);
+  }
+
+  .movie-tag-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(14, 7, 22, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(244,63,94,0.4);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fb7185;
+    z-index: 2;
+  }
+
+  .movie-poster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+
+  .movie-info {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .movie-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .movie-meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--accent);
+  }
+
+  /* ── VIEW 3: GAMES ── */
+  .games-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
+  .game-mode-toggle { display: flex; gap: 12px; }
+
+  .game-toggle-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 10px 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .game-toggle-btn.active {
+    background: var(--primary-gradient);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(244,63,94,0.35);
+  }
+
+  .game-panel-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 34px;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  }
+
+  .quiz-q-title {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    color: #fff;
+    margin: 20px 0;
+  }
+
+  .quiz-answers-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .quiz-btn-opt {
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 20px;
+    color: var(--text);
+    font-size: 15px;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+  .quiz-btn-opt:hover {
+    border-color: var(--primary);
+    background: rgba(244,63,94,0.18);
+  }
+  .quiz-btn-opt.selected {
+    background: rgba(244,63,94,0.35);
+    border-color: var(--primary);
+    font-weight: 700;
+  }
+
+  .ttt-board-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 320px;
+    margin: 24px auto;
+  }
+
+  .ttt-square {
+    aspect-ratio: 1;
+    background: var(--bg-card-solid);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    font-size: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ttt-square:hover { border-color: var(--primary); transform: scale(1.05); }
+
+  /* ── VIEW 4: MEMORY VAULT ── */
+  .vault-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 24px;
+    overflow-y: auto;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .vault-composer-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .vault-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .vault-card {
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .vault-card:hover { transform: translateY(-4px); border-color: var(--primary); }
+
+  .vault-media-preview {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+  }
+
+  .vault-content {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Pop Overlays */
+  #heart-pop-stage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+  }
+
+  .floating-kiss {
+    position: absolute;
+    font-size: 60px;
+    animation: kissRise 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes kissRise {
+    0% { transform: scale(0.3) translateY(40px); opacity: 0; }
+    30% { transform: scale(1.3) translateY(-10px); opacity: 1; }
+    80% { opacity: 0.95; }
+    100% { transform: scale(1.6) translateY(-160px); opacity: 0; }
+  }
+
+  #app-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--bg-card-solid);
+    border: 1px solid var(--primary);
+    border-radius: 16px;
+    padding: 14px 22px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.7), var(--shadow-glow);
+    z-index: 10000;
+    animation: toastSlide 0.3s ease-out;
+  }
+
+  @keyframes toastSlide {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    .app-topbar { padding: 0 16px; }
+    .tab-navigator { display: none; }
+    .mobile-tab-bar {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      background: rgba(14, 7, 22, 0.96);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border);
+      z-index: 900;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .mobile-tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .mobile-tab-item.active { color: var(--primary); font-weight: 700; }
+    .mobile-tab-item span:first-child { font-size: 18px; }
+    .chat-view, .watch-view, .games-view, .vault-view { padding-bottom: 74px; }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-tab-bar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<!-- ── SCREEN 1: LOBBY / JOIN ── -->
+<div id="join-view">
+  <div class="join-card">
+    <div class="join-badge">💖 Infinite Couple Cinema &amp; Love Universe</div>
+    <div class="join-logo">
+      <span>💍</span> LoveLink
+    </div>
+    <p class="join-desc">Watch Hindi Bollywood movies, web series, Jellyfin streams, whisper voice notes &amp; record memories together.</p>
+
+    <div class="field-box">
+      <label class="field-label">Your Name / Sweet Nickname</label>
+      <input id="input-username" class="input-styled" type="text" placeholder="e.g. My Princess / Baby / Sweetheart" />
+    </div>
+
+    <div class="field-box">
+      <label class="field-label">Choose Couple Avatar</label>
+      <div class="avatar-row" id="avatar-container">
+        <div class="avatar-choice selected" onclick="chooseAvatar('👸')">👸</div>
+        <div class="avatar-choice" onclick="chooseAvatar('🤴')">🤴</div>
+        <div class="avatar-choice" onclick="chooseAvatar('💖')">💖</div>
+        <div class="avatar-choice" onclick="chooseAvatar('🧸')">🧸</div>
+        <div class="avatar-choice" onclick="chooseAvatar('🐱')">🐱</div>
+        <div class="avatar-choice" onclick="chooseAvatar('🐶')">🐶</div>
+      </div>
+    </div>
+
+    <div class="field-box">
+      <label class="field-label">Secret Room Code (Both enter this code)</label>
+      <input id="input-room" class="input-styled" type="text" placeholder="e.g. forever-together-2024" />
+    </div>
+
+    <button class="btn-gradient" onclick="enterRoom()">Enter Love Space 💘</button>
+    <button class="btn-ghost" onclick="makeRandomRoom()">🎲 Generate Sweet Secret Room</button>
+  </div>
+</div>
+
+<!-- ── SCREEN 2: 100X MAIN LOVE SPACE ── -->
+<div id="main-app">
+  <header class="app-topbar">
+    <div class="topbar-brand">
+      <span>💌</span> LoveLink
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="tab-navigator">
+      <button class="tab-nav-btn active" onclick="activateTab('chat')">💬 Cozy Chat</button>
+      <button class="tab-nav-btn" onclick="activateTab('watch')">🎬 Bollywood &amp; Jellyfin Cinema</button>
+      <button class="tab-nav-btn" onclick="activateTab('games')">🎮 Fun Games</button>
+      <button class="tab-nav-btn" onclick="activateTab('vault')">📖 Memory Vault</button>
+    </nav>
+
+    <!-- Topbar Room Info -->
+    <div class="topbar-controls">
+      <div class="room-pill" onclick="copyInvitationLink()" title="Click to copy full partner invitation link">
+        <span>🔑</span> <b id="display-room-name">Room</b>
+        <span style="font-size:11px;color:var(--accent)">📋 Share</span>
+      </div>
+      <button class="leave-btn" onclick="logoutRoom()" title="Leave room">🚪 Exit</button>
+    </div>
+  </header>
+
+  <main class="app-main-content">
+
+    <!-- ── TAB 1: COZY CHAT ── -->
+    <section class="view-panel active" id="view-chat">
+      <div class="chat-view">
+        <div class="chat-flow" id="chat-stream"></div>
+
+        <div class="love-touch-bar">
+          <button class="love-touch-btn" onclick="triggerLoveAction('kiss')">💋 Send Sweet Kiss</button>
+          <button class="love-touch-btn" onclick="triggerLoveAction('hug')">🤗 Tight Warm Hug</button>
+          <button class="love-touch-btn" onclick="triggerLoveAction('miss')">🥺 I Miss You</button>
+          <button class="love-touch-btn" onclick="triggerLoveAction('heart')">💖 Exploding Hearts</button>
+          <button class="love-touch-btn" onclick="triggerLoveAction('love')">💍 Forever Love</button>
+        </div>
+
+        <div class="chat-composer">
+          <label class="action-icon-btn" title="Send large movie/video or photo (Up to 5GB)">
+            📎
+            <input type="file" id="media-file-input" style="display:none" onchange="uploadChatMedia(this.files)" />
+          </label>
+
+          <button class="action-icon-btn" id="mic-recorder-btn" title="Voice Note: Click to record, Click to send" onclick="toggleVoiceNote()">
+            🎙️
+          </button>
+
+          <input id="chat-input-text" class="composer-input" type="text" placeholder="Whisper something sweet to your love..." onkeydown="handleComposerKey(event)" />
+
+          <button class="btn-send-message" onclick="submitTextMessage()">➤</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TAB 2: CINEMA WATCH PARTY (HINDI BOLLYWOOD + JELLYFIN) ── -->
+    <section class="view-panel" id="view-watch">
+      <div class="watch-view">
+
+        <!-- Cinema Screen Card -->
+        <div class="cinema-card">
+          <div class="cinema-screen">
+            <video id="shared-video-player" controls playsinline>
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="cinema-toolbar">
+            <div class="sync-badge-box">
+              <div class="status-pulse"></div>
+              <span id="sync-banner-text">Synchronized with partner ✨</span>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <label class="btn-gradient" style="padding:8px 16px;font-size:13px;cursor:pointer;margin:0">
+                📁 Upload Movie / Episode
+                <input type="file" id="watch-upload-file" accept="video/*,audio/*" style="display:none" onchange="uploadSharedMovie(this.files[0])" />
+              </label>
+              <button class="btn-ghost" style="margin:0" onclick="enterCustomWebUrl()">🔗 Direct Stream URL</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jellyfin Media Server Integration Banner -->
+        <div class="jellyfin-bar">
+          <div class="jellyfin-badge">
+            <span style="font-size:22px">🍇</span>
+            <div>
+              <div style="color:#fff;font-weight:700">Jellyfin Media Server Bridge</div>
+              <div style="font-size:11px;color:var(--text-muted)">Connect your private home media library to stream any Hindi movie or series</div>
+            </div>
+          </div>
+          <button class="btn-ghost" style="margin:0;padding:7px 14px;font-size:12px" onclick="promptJellyfinConnect()">⚙️ Connect Jellyfin Server</button>
+        </div>
+
+        <!-- Hindi & Bollywood Media Catalog -->
+        <div class="catalog-controls">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+            <h3 style="font-family:var(--font-serif);font-size:22px;color:#fff;display:flex;align-items:center;gap:10px">
+              <span>🍿</span> Bollywood Cinema &amp; Romantic Web Series
+            </h3>
+            <span style="font-size:12px;color:var(--accent)" id="catalog-count-badge">Loading...</span>
+          </div>
+
+          <!-- Category Filters -->
+          <div class="filter-pills-row">
+            <div class="filter-pill active" onclick="setCategoryFilter('all', this)">✨ All Picks</div>
+            <div class="filter-pill" onclick="setCategoryFilter('hindi-movie', this)">🌹 Hindi Movies</div>
+            <div class="filter-pill" onclick="setCategoryFilter('web-series', this)">🛋️ Romantic Web Series</div>
+            <div class="filter-pill" onclick="setCategoryFilter('hollywood', this)">🎬 Hollywood Romance</div>
+            <div class="filter-pill" onclick="setCategoryFilter('anime', this)">🌠 Anime Love</div>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="catalog-search-bar">
+            <input id="catalog-search-input" class="catalog-input" type="text" placeholder="Search Hindi movies (DDLJ, YJHD, Jab We Met, Little Things, Mismatched...)" oninput="filterMediaCatalog(this.value)" />
+          </div>
+        </div>
+
+        <!-- Dynamic Movies & Web Series Grid -->
+        <div class="movie-grid" id="cinema-catalog-grid">
+          <!-- Dynamically populated from /api/media/search -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── TAB 3: FUN GAMES ── -->
+    <section class="view-panel" id="view-games">
+      <div class="games-view">
+        <div class="game-mode-toggle">
+          <button class="game-toggle-btn active" id="btn-quiz-mode" onclick="toggleGameMode('quiz')">🧩 Couple Compatibility Quiz</button>
+          <button class="game-toggle-btn" id="btn-ttt-mode" onclick="toggleGameMode('ttt')">❤️ Hearts vs Sparks (Tic-Tac-Toe)</button>
+        </div>
+
+        <!-- Couple Quiz -->
+        <div class="game-panel-box" id="box-quiz">
+          <h2 style="font-family:var(--font-serif);color:var(--accent);margin-bottom:6px">Couple Compatibility Quiz 💕</h2>
+          <p style="color:var(--text-muted);font-size:14px">Answer romantic questions together — see if your hearts beat in sync!</p>
+
+          <div id="quiz-question-container" style="display:none;margin-top:20px">
+            <div style="font-size:12px;color:var(--primary);font-weight:700" id="quiz-progress-text">QUESTION 1 / 5</div>
+            <div class="quiz-q-title" id="quiz-question-title">Loading...</div>
+            <div class="quiz-answers-list" id="quiz-choices-box"></div>
+            <div id="quiz-verdict-note" style="margin-top:16px;font-size:13px;color:var(--text-muted)">Waiting for both answers...</div>
+          </div>
+
+          <div id="quiz-init-container" style="margin-top:24px">
+            <button class="btn-gradient" onclick="launchQuiz()">🚀 Start Couple Quiz</button>
+          </div>
+        </div>
+
+        <!-- Tic-Tac-Toe -->
+        <div class="game-panel-box" id="box-ttt" style="display:none">
+          <h2 style="font-family:var(--font-serif);color:var(--accent);margin-bottom:6px">Tic-Tac-Toe of Love ❤️⚡</h2>
+          <p style="color:var(--text-muted);font-size:14px">Hearts (❤️) vs Sparks (⚡) — loser owes a warm hug or kiss!</p>
+          <div style="font-size:14px;color:var(--accent);margin-top:10px" id="ttt-whos-turn">Turn: ❤️</div>
+
+          <div class="ttt-board-grid">
+            <div class="ttt-square" onclick="makeTTTPlay(0)"></div>
+            <div class="ttt-square" onclick="makeTTTPlay(1)"></div>
+            <div class="ttt-square" onclick="makeTTTPlay(2)"></div>
+            <div class="ttt-square" onclick="makeTTTPlay(3)"></div>
+            <div class="ttt-square" onclick="makeTTTPlay(4)"></div>
+            <div class="ttt-square" onclick="makeTTTPlay(5)"></div>
+            <div class="ttt-square" onclick="makeTTTPlay(6)"></div>
+            <div class="ttt-square" onclick="makeTTTPlay(7)"></div>
+            <div class="ttt-square" onclick="makeTTTPlay(8)"></div>
+          </div>
+
+          <button class="btn-ghost" onclick="resetTTTBoard()">🔄 Reset Board</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TAB 4: MEMORY VAULT ── -->
+    <section class="view-panel" id="view-vault">
+      <div class="vault-view">
+        <div class="vault-composer-card">
+          <h3 style="font-family:var(--font-serif);font-size:22px;color:var(--accent)">🌹 Seal a Memory Forever in the Cloud</h3>
+          <p style="color:var(--text-muted);font-size:13px">Save milestones, anniversaries, romantic letters, and couple pictures permanently.</p>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <input type="text" id="vault-title" placeholder="Memory Title (e.g. Watching DDLJ Together Late Night)" class="input-styled" style="flex:1;min-width:240px" />
+            <input type="date" id="vault-date" class="input-styled" style="width:auto" />
+          </div>
+
+          <textarea id="vault-note" rows="2" class="input-styled" placeholder="How did this moment feel? Write your heartfelt love note..." style="resize:vertical"></textarea>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <label class="btn-ghost" style="margin:0;cursor:pointer">
+              📸 Attach Photo / Video
+              <input type="file" id="vault-file-selector" accept="image/*,video/*" style="display:none" onchange="stageMemoryFile(this.files[0])" />
+            </label>
+            <span id="vault-file-display" style="font-size:12px;color:var(--text-muted)"></span>
+            <button class="btn-gradient" style="width:auto;margin:0;padding:12px 28px" onclick="commitNewMemory()">💖 Save into Vault</button>
+          </div>
+        </div>
+
+        <div class="vault-grid" id="vault-items-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Bottom Tab Bar -->
+  <nav class="mobile-tab-bar">
+    <button class="mobile-tab-item active" onclick="activateTab('chat')">
+      <span>💬</span><span>Chat</span>
+    </button>
+    <button class="mobile-tab-item" onclick="activateTab('watch')">
+      <span>🎬</span><span>Cinema</span>
+    </button>
+    <button class="mobile-tab-item" onclick="activateTab('games')">
+      <span>🎮</span><span>Games</span>
+    </button>
+    <button class="mobile-tab-item" onclick="activateTab('vault')">
+      <span>📖</span><span>Vault</span>
+    </button>
+  </nav>
+</div>
+
+<!-- Heart Pop Animations Overlay -->
+<div id="heart-pop-stage"></div>
+
+<!-- Toast Popup -->
+<div id="app-toast">
+  <span id="toast-icon">💌</span>
+  <span id="toast-message">Message</span>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+// Ambient Background Canvas
+(function initAmbientParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+
+  const particles = Array.from({ length: 35 }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    size: Math.random() * 3 + 1,
+    speedY: -(Math.random() * 0.7 + 0.3),
+    speedX: (Math.random() - 0.5) * 0.4,
+    opacity: Math.random() * 0.5 + 0.2
+  }));
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.y += p.speedY;
+      p.x += p.speedX;
+      if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+      ctx.fillStyle = `rgba(244, 63, 94, ${p.opacity})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// App State
+let socket;
+let currentRoom = '';
+let myUsername = '';
+let myAvatar = '👸';
+let isSyncOriginator = false;
+let mediaRecorder;
+let audioChunks = [];
+let isVoiceRecording = false;
+let pendingVaultMediaUrl = null;
+let pendingVaultMediaType = null;
+let currentPlayingAudio = null;
+let activeCategoryFilter = 'all';
+
+const STORAGE_KEYS = {
+  ROOM: 'lovelink_saved_room',
+  NAME: 'lovelink_saved_name',
+  AVATAR: 'lovelink_saved_avatar'
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramRoom = urlParams.get('room');
+
+  const savedRoom = paramRoom || localStorage.getItem(STORAGE_KEYS.ROOM);
+  const savedName = localStorage.getItem(STORAGE_KEYS.NAME);
+  const savedAvatar = localStorage.getItem(STORAGE_KEYS.AVATAR);
+
+  if (savedRoom) document.getElementById('input-room').value = savedRoom;
+  if (savedName) document.getElementById('input-username').value = savedName;
+  if (savedAvatar) chooseAvatar(savedAvatar);
+
+  if (savedRoom && savedName) {
+    enterRoom(true);
+  }
+});
+
+function chooseAvatar(emoji) {
+  myAvatar = emoji;
+  document.querySelectorAll('.avatar-choice').forEach(el => {
+    el.classList.toggle('selected', el.innerText === emoji);
+  });
+}
+
+function makeRandomRoom() {
+  const adjectives = ['sweet', 'romantic', 'cozy', 'forever', 'golden', 'eternal', 'cute', 'starry'];
+  const nouns = ['love', 'hearts', 'cuddle', 'spark', 'haven', 'dream', 'soulmates', 'date'];
+  const num = Math.floor(1000 + Math.random() * 9000);
+  const code = `${adjectives[Math.floor(Math.random()*adjectives.length)]}-${nouns[Math.floor(Math.random()*nouns.length)]}-${num}`;
+  document.getElementById('input-room').value = code;
+}
+
+function enterRoom(isAutoRestore = false) {
+  const name = document.getElementById('input-username').value.trim();
+  const room = document.getElementById('input-room').value.trim().toLowerCase().replace(/\s+/g, '-');
+
+  if (!name) { alert('Please enter your cute name or nickname! 💖'); return; }
+  if (!room) { alert('Please enter or generate a couple room code!'); return; }
+
+  myUsername = name;
+  currentRoom = room;
+
+  localStorage.setItem(STORAGE_KEYS.ROOM, currentRoom);
+  localStorage.setItem(STORAGE_KEYS.NAME, myUsername);
+  localStorage.setItem(STORAGE_KEYS.AVATAR, myAvatar);
+
+  document.getElementById('join-view').style.display = 'none';
+  document.getElementById('main-app').style.display = 'flex';
+  document.getElementById('display-room-name').innerText = currentRoom;
+
+  setupSocket();
+  fetchChatHistory();
+  fetchVaultMemories();
+  fetchMediaCatalog();
+
+  if (isAutoRestore) {
+    displayToast(`Welcome back to your room "${currentRoom}", ${myUsername}! 💕`);
+  }
+}
+
+function logoutRoom() {
+  if (confirm('Exit room? (Your chat history remains saved on the cloud)')) {
+    localStorage.removeItem(STORAGE_KEYS.ROOM);
+    window.location.reload();
+  }
+}
+
+function copyInvitationLink() {
+  const link = `${window.location.origin}?room=${currentRoom}`;
+  navigator.clipboard.writeText(link).then(() => {
+    displayToast('🔑 Invitation Link copied! Send this to your partner.');
+  });
+}
+
+function activateTab(tabId) {
+  document.querySelectorAll('.tab-nav-btn').forEach((btn, idx) => {
+    const tabs = ['chat', 'watch', 'games', 'vault'];
+    btn.classList.toggle('active', tabs[idx] === tabId);
+  });
+  document.querySelectorAll('.mobile-tab-item').forEach((btn, idx) => {
+    const tabs = ['chat', 'watch', 'games', 'vault'];
+    btn.classList.toggle('active', tabs[idx] === tabId);
+  });
+  document.querySelectorAll('.view-panel').forEach(v => {
+    v.classList.toggle('active', v.id === `view-${tabId}`);
+  });
+}
+
+// Socket Setup
+function setupSocket() {
+  socket = io();
+
+  socket.on('connect', () => {
+    socket.emit('join-room', {
+      room: currentRoom,
+      username: myUsername,
+      avatar: myAvatar
+    });
+  });
+
+  socket.on('chat-message', msg => renderChatBubble(msg));
+  socket.on('file-message', msg => renderChatBubble(msg));
+  socket.on('voice-note-message', msg => renderChatBubble(msg));
+  socket.on('system-message', msg => renderChatBubble(msg));
+
+  socket.on('movie-stopped-notification', ({ sender, timeStr }) => {
+    displayToast(`⏸️ ${sender} paused the movie at ${timeStr}! Waiting for you...`, '🎬');
+  });
+
+  socket.on('movie-resumed-notification', ({ sender }) => {
+    displayToast(`▶️ ${sender} resumed the movie! Enjoy together 💕`, '🍿');
+  });
+
+  socket.on('sync-load-media', ({ url, title, sender }) => {
+    loadVideoSource(url, title);
+    displayToast(`🎬 ${sender} loaded "${title}"`);
+  });
+
+  socket.on('sync-state-init', state => {
+    if (state.mediaUrl) {
+      loadVideoSource(state.mediaUrl, state.mediaTitle || 'Shared Video');
+      const player = document.getElementById('shared-video-player');
+      player.currentTime = state.currentTime;
+      if (state.playing) player.play().catch(()=>{});
+    }
+  });
+
+  socket.on('sync-play', ({ currentTime }) => {
+    const player = document.getElementById('shared-video-player');
+    isSyncOriginator = true;
+    player.currentTime = currentTime;
+    player.play().catch(()=>{});
+    setTimeout(() => { isSyncOriginator = false; }, 350);
+  });
+
+  socket.on('sync-pause', ({ currentTime }) => {
+    const player = document.getElementById('shared-video-player');
+    isSyncOriginator = true;
+    player.currentTime = currentTime;
+    player.pause();
+    setTimeout(() => { isSyncOriginator = false; }, 350);
+  });
+
+  socket.on('sync-seek', ({ currentTime }) => {
+    const player = document.getElementById('shared-video-player');
+    isSyncOriginator = true;
+    player.currentTime = currentTime;
+    setTimeout(() => { isSyncOriginator = false; }, 350);
+  });
+
+  socket.on('love-action-received', action => spawnLoveAnimation(action));
+
+  socket.on('quiz-question', q => displayQuizQuestion(q));
+  socket.on('quiz-partner-answered', ({ username }) => {
+    document.getElementById('quiz-verdict-note').innerText = `✨ ${username} submitted an answer!`;
+  });
+  socket.on('quiz-round-result', ({ isMatch }) => {
+    const verdict = document.getElementById('quiz-verdict-note');
+    if (isMatch) {
+      verdict.innerHTML = `<span style="color:#34d399;font-weight:700">💖 100% MATCH! You two are soulmates!</span>`;
+      spawnLoveAnimation({ actionType: 'heart' });
+    } else {
+      verdict.innerHTML = `<span style="color:#fb7185">Aww cute! Different answers make love fun! 💕</span>`;
+    }
+  });
+  socket.on('quiz-game-over', ({ message }) => {
+    document.getElementById('quiz-question-container').style.display = 'none';
+    document.getElementById('quiz-init-container').style.display = 'block';
+    alert(message);
+  });
+
+  socket.on('ttt-update', state => updateTTTDisplay(state));
+
+  socket.on('new-memory', m => insertVaultCard(m));
+  socket.on('memory-deleted', ({ id }) => {
+    const el = document.getElementById('vault-card-' + id);
+    if (el) el.remove();
+  });
+}
+
+// Chat Functions
+function handleComposerKey(e) {
+  if (e.key === 'Enter') submitTextMessage();
+}
+
+function submitTextMessage() {
+  const input = document.getElementById('chat-input-text');
+  const text = input.value.trim();
+  if (!text) return;
+  socket.emit('chat-message', { room: currentRoom, text });
+  input.value = '';
+}
+
+async function fetchChatHistory() {
+  try {
+    const res = await fetch('/api/history/' + currentRoom);
+    const history = await res.json();
+    const stream = document.getElementById('chat-stream');
+    stream.innerHTML = '';
+    history.forEach(msg => renderChatBubble(msg));
+  } catch (err) {
+    console.error('Failed to load history', err);
+  }
+}
+
+function renderChatBubble(msg) {
+  const stream = document.getElementById('chat-stream');
+  const isMe = msg.sender === myUsername;
+  const time = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : '';
+
+  const row = document.createElement('div');
+  row.className = `chat-row ${isMe ? 'me' : 'them'}`;
+
+  if (msg.type === 'system') {
+    row.style.alignSelf = 'center';
+    row.innerHTML = `<div style="font-size:12px;color:var(--text-muted);background:rgba(255,255,255,0.06);padding:5px 16px;border-radius:20px;border:1px solid rgba(244,63,94,0.15)">${escapeHTML(msg.text)}</div>`;
+    stream.appendChild(row);
+    stream.scrollTop = stream.scrollHeight;
+    return;
+  }
+
+  let bodyHTML = '';
+  if (msg.type === 'voice-note') {
+    bodyHTML = `
+      <div class="voice-msg-card" id="voice-card-${msg.id}">
+        <button class="voice-play-trigger" onclick="togglePlayVoice('${msg.url}', 'voice-card-${msg.id}')">▶</button>
+        <div class="voice-bars">
+          <div class="v-bar"></div><div class="v-bar"></div><div class="v-bar"></div><div class="v-bar"></div><div class="v-bar"></div>
+        </div>
+        <span style="font-size:11px;color:var(--text-muted)">Voice Note 🎙️</span>
+      </div>
+    `;
+  } else if (msg.type === 'file') {
+    if (msg.mime && msg.mime.startsWith('video/')) {
+      bodyHTML = `
+        <div style="max-width:320px;border-radius:16px;overflow:hidden;background:#000">
+          <video controls src="${msg.url}" style="width:100%;display:block"></video>
+          <div style="padding:8px;font-size:12px;display:flex;justify-content:space-between;align-items:center">
+            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHTML(msg.filename)}</span>
+            <button onclick="loadVideoSource('${msg.url}', '${escapeHTML(msg.filename)}'); activateTab('watch');" style="background:var(--primary);border:none;color:#fff;border-radius:10px;padding:4px 10px;font-size:11px;cursor:pointer;white-space:nowrap">Watch Together 🎬</button>
+          </div>
+        </div>
+      `;
+    } else if (msg.mime && msg.mime.startsWith('image/')) {
+      bodyHTML = `
+        <div style="max-width:300px;border-radius:16px;overflow:hidden">
+          <img src="${msg.url}" style="width:100%;display:block;cursor:pointer" onclick="window.open('${msg.url}')" />
+        </div>
+      `;
+    } else {
+      bodyHTML = `
+        <div class="chat-bubble" style="display:flex;align-items:center;gap:10px">
+          <span>📦</span>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:13px">${escapeHTML(msg.filename)}</div>
+            <div style="font-size:11px;color:var(--text-muted)">${formatByteSize(msg.size)}</div>
+          </div>
+          <a href="${msg.url}" download="${escapeHTML(msg.filename)}" style="color:var(--accent);text-decoration:none;font-size:14px;font-weight:700">⬇</a>
+        </div>
+      `;
+    }
+  } else {
+    bodyHTML = `<div class="chat-bubble">${escapeHTML(msg.text)}</div>`;
+  }
+
+  row.innerHTML = `
+    <div class="chat-avatar">${msg.avatar || '💖'}</div>
+    <div class="chat-msg-wrap">
+      <span class="chat-sender">${isMe ? 'You' : escapeHTML(msg.sender)} • ${time}</span>
+      ${bodyHTML}
+    </div>
+  `;
+
+  stream.appendChild(row);
+  stream.scrollTop = stream.scrollHeight;
+}
+
+// Voice Recording
+async function toggleVoiceNote() {
+  const btn = document.getElementById('mic-recorder-btn');
+  if (!isVoiceRecording) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+
+      mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        const formData = new FormData();
+        formData.append('file', audioBlob, `voice_${Date.now()}.webm`);
+        formData.append('room', currentRoom);
+        formData.append('sender', myUsername);
+        formData.append('isVoiceNote', 'true');
+
+        displayToast('Sending your voice note 🎙️...');
+        await fetch('/upload/simple', { method: 'POST', body: formData });
+      };
+
+      mediaRecorder.start();
+      isVoiceRecording = true;
+      btn.classList.add('recording');
+      displayToast('Recording voice note... Tap mic again to send');
+    } catch (err) {
+      alert('Microphone permission required for voice notes!');
+    }
+  } else {
+    mediaRecorder.stop();
+    isVoiceRecording = false;
+    btn.classList.remove('recording');
+  }
+}
+
+function togglePlayVoice(url, cardId) {
+  const card = document.getElementById(cardId);
+  const btn = card.querySelector('.voice-play-trigger');
+
+  if (currentPlayingAudio && !currentPlayingAudio.paused) {
+    currentPlayingAudio.pause();
+    document.querySelectorAll('.voice-play-trigger').forEach(b => b.innerText = '▶');
+    document.querySelectorAll('.voice-msg-card').forEach(c => c.classList.remove('playing'));
+  }
+
+  currentPlayingAudio = new Audio(url);
+  btn.innerText = '⏸';
+  card.classList.add('playing');
+  currentPlayingAudio.play();
+
+  currentPlayingAudio.onended = () => {
+    btn.innerText = '▶';
+    card.classList.remove('playing');
+  };
+}
+
+async function uploadChatMedia(files) {
+  if (!files || !files.length) return;
+  const file = files[0];
+  displayToast(`Uploading ${file.name}...`);
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('room', currentRoom);
+  formData.append('sender', myUsername);
+
+  try {
+    await fetch('/upload/simple', { method: 'POST', body: formData });
+    displayToast(`Uploaded ${file.name}! 💖`);
+  } catch (err) {
+    alert('Upload error: ' + err.message);
+  }
+}
+
+function triggerLoveAction(actionType) {
+  socket.emit('send-love-action', { room: currentRoom, actionType });
+}
+
+function spawnLoveAnimation(action) {
+  const stage = document.getElementById('heart-pop-stage');
+  stage.style.display = 'block';
+
+  const emojiMap = {
+    'kiss': '💋',
+    'hug': '🤗',
+    'miss': '🥺',
+    'heart': '💖',
+    'love': '💍'
+  };
+  const emoji = emojiMap[action.actionType] || '💖';
+
+  for (let i = 0; i < 8; i++) {
+    const kiss = document.createElement('div');
+    kiss.className = 'floating-kiss';
+    kiss.innerText = emoji;
+    kiss.style.left = (15 + Math.random() * 70) + 'vw';
+    kiss.style.top = (40 + Math.random() * 30) + 'vh';
+    kiss.style.animationDelay = (i * 0.12) + 's';
+    stage.appendChild(kiss);
+    setTimeout(() => kiss.remove(), 2400);
+  }
+
+  displayToast(`${action.sender} sent you ${action.actionType}! ${emoji}`);
+  setTimeout(() => { stage.style.display = 'none'; }, 2500);
+}
+
+// Watch Party Controls
+const sharedPlayer = document.getElementById('shared-video-player');
+
+sharedPlayer.addEventListener('play', () => {
+  if (!isSyncOriginator && socket) {
+    socket.emit('sync-play', { room: currentRoom, currentTime: sharedPlayer.currentTime });
+  }
+});
+
+sharedPlayer.addEventListener('pause', () => {
+  if (!isSyncOriginator && socket) {
+    socket.emit('sync-pause', { room: currentRoom, currentTime: sharedPlayer.currentTime });
+  }
+});
+
+sharedPlayer.addEventListener('seeked', () => {
+  if (!isSyncOriginator && socket) {
+    socket.emit('sync-seek', { room: currentRoom, currentTime: sharedPlayer.currentTime });
+  }
+});
+
+function loadVideoSource(url, title) {
+  sharedPlayer.src = url;
+  document.getElementById('sync-banner-text').innerText = `Now playing: ${title} ✨`;
+}
+
+async function uploadSharedMovie(file) {
+  if (!file) return;
+  displayToast(`Uploading shared movie: ${file.name}...`);
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('room', currentRoom);
+  formData.append('sender', myUsername);
+
+  const res = await fetch('/upload/simple', { method: 'POST', body: formData });
+  const data = await res.json();
+  socket.emit('sync-set-media', {
+    room: currentRoom,
+    url: data.url,
+    type: file.type.startsWith('audio/') ? 'audio' : 'video',
+    title: file.name
+  });
+}
+
+function enterCustomWebUrl() {
+  const url = prompt('Enter Direct MP4/MP3 or Video Stream URL:');
+  if (url) {
+    socket.emit('sync-set-media', {
+      room: currentRoom,
+      url,
+      type: 'video',
+      title: 'Online Video Stream'
+    });
+  }
+}
+
+// ── Jellyfin Integration Connect Prompt ──
+function promptJellyfinConnect() {
+  const serverUrl = prompt('Enter your Jellyfin Server URL (e.g. http://localhost:8096 or your private Jellyfin URL):');
+  if (!serverUrl) return;
+  const apiKey = prompt('Enter your Jellyfin API Key (optional):', '');
+
+  fetch('/api/jellyfin/connect', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ serverUrl, apiKey })
+  })
+  .then(r => r.json())
+  .then(data => {
+    displayToast('🍇 Connected to Jellyfin Server successfully!');
+  })
+  .catch(err => {
+    alert('Failed to connect to Jellyfin: ' + err.message);
+  });
+}
+
+// ── Media Catalog & Hindi Filter Engine ──
+async function fetchMediaCatalog() {
+  try {
+    const q = document.getElementById('catalog-search-input').value.trim();
+    let url = `/api/media/search?category=${encodeURIComponent(activeCategoryFilter)}`;
+    if (q) url += `&q=${encodeURIComponent(q)}`;
+
+    const res = await fetch(url);
+    const list = await res.json();
+    renderMediaCatalogGrid(list);
+  } catch (err) {
+    console.error('Failed to load media catalog', err);
+  }
+}
+
+function setCategoryFilter(category, element) {
+  activeCategoryFilter = category;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  element.classList.add('active');
+  fetchMediaCatalog();
+}
+
+function filterMediaCatalog(query) {
+  fetchMediaCatalog();
+}
+
+function renderMediaCatalogGrid(items) {
+  const grid = document.getElementById('cinema-catalog-grid');
+  grid.innerHTML = '';
+  document.getElementById('catalog-count-badge').innerText = `${items.length} titles available`;
+
+  items.forEach(m => {
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+    card.onclick = () => {
+      socket.emit('sync-set-media', {
+        room: currentRoom,
+        url: m.streamUrl,
+        type: 'video',
+        title: m.title
+      });
+      displayToast(`Loaded "${m.title}" into cinema player! 🎬`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    card.innerHTML = `
+      <div class="movie-tag-badge">${escapeHTML(m.tag || m.category)}</div>
+      <img src="${m.poster}" class="movie-poster" alt="${escapeHTML(m.title)}" loading="lazy" />
+      <div class="movie-info">
+        <div class="movie-title">${escapeHTML(m.title)}</div>
+        <div class="movie-meta-row">
+          <span>${escapeHTML(m.language)} • ${escapeHTML(m.year)}</span>
+          <span style="color:#fbbf24;font-weight:700">★ ${escapeHTML(m.rating || '8.8')}</span>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Games Logic
+function toggleGameMode(mode) {
+  document.getElementById('btn-quiz-mode').classList.toggle('active', mode === 'quiz');
+  document.getElementById('btn-ttt-mode').classList.toggle('active', mode === 'ttt');
+  document.getElementById('box-quiz').style.display = mode === 'quiz' ? 'block' : 'none';
+  document.getElementById('box-ttt').style.display = mode === 'ttt' ? 'block' : 'none';
+}
+
+function launchQuiz() {
+  socket.emit('quiz-start', { room: currentRoom });
+}
+
+function displayQuizQuestion(qData) {
+  document.getElementById('quiz-init-container').style.display = 'none';
+  document.getElementById('quiz-question-container').style.display = 'block';
+  document.getElementById('quiz-progress-text').innerText = `QUESTION ${qData.questionIdx + 1} / ${qData.total}`;
+  document.getElementById('quiz-question-title').innerText = qData.question;
+
+  const choicesBox = document.getElementById('quiz-choices-box');
+  choicesBox.innerHTML = '';
+  document.getElementById('quiz-verdict-note').innerText = 'Lock in your honest answer...';
+
+  qData.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-btn-opt';
+    btn.innerText = opt;
+    btn.onclick = () => {
+      document.querySelectorAll('.quiz-btn-opt').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      socket.emit('quiz-answer', {
+        room: currentRoom,
+        questionIdx: qData.questionIdx,
+        optionIdx: idx
+      });
+      document.getElementById('quiz-verdict-note').innerText = 'Answer locked! Waiting for your love...';
+    };
+    choicesBox.appendChild(btn);
+  });
+}
+
+function makeTTTPlay(index) {
+  socket.emit('ttt-move', { room: currentRoom, index });
+}
+
+function updateTTTDisplay(state) {
+  const squares = document.querySelectorAll('.ttt-square');
+  state.board.forEach((val, i) => { squares[i].innerText = val || ''; });
+
+  const turnEl = document.getElementById('ttt-whos-turn');
+  if (state.winner) {
+    turnEl.innerHTML = state.winner === 'Tie' ? `Tie game! Both win a cuddle! 🤗` : `Winner: ${state.winner}! Loser owes a kiss! 💋`;
+    spawnLoveAnimation({ actionType: 'heart' });
+  } else {
+    turnEl.innerText = `Turn: ${state.turn}`;
+  }
+}
+
+function resetTTTBoard() {
+  socket.emit('ttt-start', { room: currentRoom });
+}
+
+// Vault Logic
+async function fetchVaultMemories() {
+  try {
+    const res = await fetch('/api/memories/' + currentRoom);
+    const memories = await res.json();
+    const grid = document.getElementById('vault-items-grid');
+    grid.innerHTML = '';
+    memories.forEach(m => insertVaultCard(m));
+  } catch (err) {
+    console.error('Failed to load memories', err);
+  }
+}
+
+function stageMemoryFile(file) {
+  if (file) {
+    document.getElementById('vault-file-display').innerText = `Attached: ${file.name}`;
+    const formData = new FormData();
+    formData.append('file', file);
+    fetch('/upload/simple', { method: 'POST', body: formData })
+      .then(r => r.json())
+      .then(data => {
+        pendingVaultMediaUrl = data.url;
+        pendingVaultMediaType = file.type;
+      });
+  }
+}
+
+async function commitNewMemory() {
+  const title = document.getElementById('vault-title').value.trim();
+  const date = document.getElementById('vault-date').value;
+  const note = document.getElementById('vault-note').value.trim();
+
+  if (!title) { alert('Give this memory a sweet title! 🌹'); return; }
+
+  await fetch('/api/memories/' + currentRoom, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title,
+      date,
+      note,
+      author: myUsername,
+      fileUrl: pendingVaultMediaUrl,
+      fileType: pendingVaultMediaType
+    })
+  });
+
+  document.getElementById('vault-title').value = '';
+  document.getElementById('vault-note').value = '';
+  document.getElementById('vault-file-display').innerText = '';
+  pendingVaultMediaUrl = null;
+  pendingVaultMediaType = null;
+  displayToast('Memory sealed forever in your cloud vault! 💍');
+}
+
+function insertVaultCard(m) {
+  const grid = document.getElementById('vault-items-grid');
+  const card = document.createElement('div');
+  card.className = 'vault-card';
+  card.id = 'vault-card-' + m.id;
+
+  let media = '';
+  if (m.fileUrl) {
+    if (m.fileType && m.fileType.startsWith('video/')) {
+      media = `<video controls src="${m.fileUrl}" class="vault-media-preview"></video>`;
+    } else {
+      media = `<img src="${m.fileUrl}" class="vault-media-preview" alt="Memory" loading="lazy" />`;
+    }
+  }
+
+  card.innerHTML = `
+    ${media}
+    <div class="vault-content">
+      <div style="font-size:16px;font-weight:700;color:#fff">${escapeHTML(m.title)}</div>
+      <div style="font-size:13px;color:var(--text-muted);line-height:1.4">${escapeHTML(m.note || '')}</div>
+      <div style="font-size:11px;color:var(--accent);display:flex;justify-content:space-between;margin-top:8px">
+        <span>By ${escapeHTML(m.author)}</span>
+        <span>${m.date ? new Date(m.date).toLocaleDateString() : 'Milestone'}</span>
+      </div>
+    </div>
+  `;
+  grid.prepend(card);
+}
+
+function displayToast(msg, icon = '💌') {
+  const toast = document.getElementById('app-toast');
+  document.getElementById('toast-icon').innerText = icon;
+  document.getElementById('toast-message').innerText = msg;
+  toast.style.display = 'flex';
+  setTimeout(() => { toast.style.display = 'none'; }, 3400);
+}
+
+function escapeHTML(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatByteSize(bytes) {
+  if (!bytes) return '0 B';
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/1024/1024).toFixed(1) + ' MB';
+}
+</script>
+</body>
+</html>
